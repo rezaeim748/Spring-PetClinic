@@ -1,0 +1,44 @@
+name: CI build
+
+on:
+  push:
+    paths-ignore:
+    - 'src/main/asciidoc/**'
+    - 'readme.adoc'
+
+env:
+  MAVEN_OPTS: -Xmx1G
+
+jobs:
+  build:
+    name: Build and test
+
+    runs-on: self-hosted
+
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Print version information
+      run: |
+        java -version
+        javac --version
+        git --version
+
+    - name: Build with Maven
+      run: ./mvnw clean package -DskipTests -B
+      working-directory: ./source/spring-petclinic-mod
+
+    - name: Test with Maven
+      run: ./mvnw verify -B
+      working-directory: ./source/spring-petclinic-mod
+
+    - name: Run and publish SonarQube analysis
+      if: github.ref == 'refs/heads/main'
+      run: ./mvnw sonar:sonar -B
+      working-directory: ./source/spring-petclinic-mod
+      env:
+        STLAB_SONAR_HOST_URL: https://st-lab-ci.inf.tu-dresden.de/sonarqube/
+        STLAB_SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}

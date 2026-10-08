@@ -1,0 +1,96 @@
+<!--<!DOCTYPE html>-->
+
+<!--<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">-->
+
+<!--<body>-->
+
+<!--<h2>Contracts</h2>-->
+
+<!--<div th:each="owner : ${listContracts}">-->
+
+<!--    <table id="owners" class="table table-striped">-->
+<!--        <thead>-->
+<!--        <tr><th style="width: 150px;">Owner</th>&lt;!&ndash;Owner header&ndash;&gt;-->
+<!--            <th style="width: 150px;">Name</th>-->
+<!--            <th style="width: 200px;">Description</th>-->
+<!--            <th style="width: 120px">basePrice</th>-->
+<!--            <th>Used Items</th>-->
+<!--            <th>SUM</th>-->
+<!--            <th>Actions</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+
+<!--        <tr th:each="contract : ${listContracts}">-->
+<!--            <td th:text="${owner.firstName + ' ' + owner.lastName}"></td>&lt;!&ndash;Added Owner details&ndash;&gt;-->
+<!--            <td>-->
+<!--                <a th:href="@{/contracts/details.html(contractId=${contract.id})}"-->
+<!--                   th:text="${contract.name}">-->
+<!--                </a>-->
+<!--            </td>-->
+<!--            <td th:text="${contract.description}"/>-->
+<!--            <td th:text="${contract.basePrice}"/>-->
+<!--            <td th:text="${contract.usedItems.size()}"/>-->
+<!--            <td th:text="${contract.currentPriceSum + ' €'}"></td>&lt;!&ndash;Added contractPrices&ndash;&gt;-->
+<!--            <td>-->
+<!--                <a th:href="@{/contracts/addItem(contractId=${contract.id})}"-->
+<!--                   class="btn btn-sm btn-primary">Add Item</a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+<body>
+
+<h2>Contracts</h2>
+
+<table id="owners" class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 150px;">Owner</th>
+        <th style="width: 150px;">Name</th>
+        <th style="width: 200px;">Description</th>
+        <th style="width: 120px">basePrice</th>
+        <th>Used Items</th>
+        <th>SUM</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="contract : ${listContracts}">
+        <td th:text="${contract.ownerName}"></td>
+
+        <td>
+            <a th:href="@{/contracts/details.html(contractId=${contract.contractId})}"
+               th:text="${contract.contractName}">
+            </a>
+        </td>
+
+        <td th:text="${contract.description}"></td>
+
+        <td th:text="${contract.basePrice}"></td>
+
+        <td th:text="${contract.usedItemsCount}"></td>
+
+        <td th:text="${contract.currentPriceSum + ' €'}"></td>
+
+        <td>
+            <a th:href="@{/contracts/addItem(contractId=${contract.contractId})}"
+               class="btn btn-sm btn-primary">Add Item</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

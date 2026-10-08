@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Contract Details</title>
+</head>
+<body>
+
+<h2>Contract Details</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Item Name</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${contract.usedItems}">
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/contracts.html">Back to Contracts</a>
+
+</body>
+</html>
